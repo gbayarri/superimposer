@@ -74,7 +74,12 @@ class Superimposer():
 
         # Get the ligands
         ref_structure = pdb_parser.get_structure("reference", self.reference)
-        sample_structure = pdb_parser.get_structure("sample", self.sample)
+        try:
+            sample_structure = pdb_parser.get_structure("sample", self.sample)
+        except:
+            print('Error reading sample ligand')
+            print(7)
+            raise SystemExit()
 
         # Use the first model in the pdb-files for alignment
         ref_model    = ref_structure[0]
