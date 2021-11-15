@@ -85,8 +85,9 @@ class Superimposer():
 
         # If both ligands don't have the same length, exit
         if not len(ref_atoms) == len(sample_atoms):
-            print('Both ligands must have the same number of atoms. Exit 6.')
-            raise SystemExit('')
+            print('Both ligands must have the same number of atoms')
+            print('Exit 6')
+            raise SystemExit()
 
         # Now we initiate the superimposer:
         super_imposer = Bio.PDB.Superimposer()
