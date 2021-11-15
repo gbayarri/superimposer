@@ -30,7 +30,7 @@ class Superimposer():
         """ Checks if extension is correct """
         filename, file_extension = os.path.splitext(file)
         if file_extension[1:] != ext:
-            raise SystemExit('Format %s in %s is not compatible, it must be %s. Exiting.' % (file_extension[1:], label, ext))
+            raise SystemExit('Format %s in %s is not compatible, it must be %s. Exit 1.' % (file_extension[1:], label, ext))
         return True
 
     def check_io(self):
@@ -49,7 +49,7 @@ class Superimposer():
         self.is_valid_extension(self.output, 'output', 'pdb')
         # Check type
         if not self.is_valid_type(self.type):
-            raise SystemExit('Type %s is not correct. It must be one of: structure, ligand' % self.type)
+            raise SystemExit('Type %s is not correct. It must be one of: structure, ligand. Exit 2.' % self.type)
 
 
     def superimpose_ligands(self):
@@ -85,7 +85,7 @@ class Superimposer():
 
         # If both ligands don't have the same length, exit
         if not len(ref_atoms) == len(sample_atoms):
-            raise SystemExit('Both ligands must have the same number of atoms. Exiting.')
+            raise SystemExit('Both ligands must have the same number of atoms. Exit 3.')
 
         # Now we initiate the superimposer:
         super_imposer = Bio.PDB.Superimposer()
@@ -198,7 +198,7 @@ class Superimposer():
         print('     RMS: '+str(super_imposer.rms))
         print('     RMS_CUTOFF: '+str(rmsd_cutoff))
 
-        exit()
+        raise SystemExit('Superposition successful. Exit 0.')
 
         ###########################################
 
