@@ -30,26 +30,41 @@ class Superimposer():
         """ Checks if extension is correct """
         filename, file_extension = os.path.splitext(file)
         if file_extension[1:] != ext:
-            raise SystemExit('Format %s in %s is not compatible, it must be %s. Exit 1.' % (file_extension[1:], label, ext))
+            print('Format %s in %s is not compatible, it must be %s' % (file_extension[1:], label, ext))
+            print(1)
+            raise SystemExit()
+            #raise SystemExit('Format %s in %s is not compatible, it must be %s. Exit 1.' % (file_extension[1:], label, ext))
         return True
 
     def check_io(self):
         """ Checks the reference, sample and output paths and the type """
         # Check reference
         if not os.path.exists(self.reference):
-            raise SystemExit('Unexisting reference file. Exit 2.')
+            print('Unexisting reference file')
+            print(2)
+            raise SystemExit()
+            #raise SystemExit('Unexisting reference file. Exit 2.')
         self.is_valid_extension(self.reference, 'reference', 'pdb')
         # Check sample
         if not os.path.exists(self.sample):
-            raise SystemExit('Unexisting sample file. Exit 3.')
+            print('Unexisting sample file')
+            print(3)
+            raise SystemExit()
+            #raise SystemExit('Unexisting sample file. Exit 3.')
         self.is_valid_extension(self.sample, 'sample', 'pdb')
         # Check output
         if os.path.dirname(self.output) and not os.path.exists(os.path.dirname(self.output)):
-            raise SystemExit('Unexisting output directory. Exit 4.')
+            print('Unexisting output directory')
+            print(4)
+            raise SystemExit()
+            #raise SystemExit('Unexisting output directory. Exit 4.')
         self.is_valid_extension(self.output, 'output', 'pdb')
         # Check type
         if not self.is_valid_type(self.type):
-            raise SystemExit('Type %s is not correct. It must be one of: structure, ligand. Exit 5.' % self.type)
+            print('Type %s is not correct. It must be one of: structure, ligand' % self.type)
+            print(5)
+            raise SystemExit()
+            #raise SystemExit('Type %s is not correct. It must be one of: structure, ligand. Exit 5.' % self.type)
 
 
     def superimpose_ligands(self):
@@ -86,7 +101,7 @@ class Superimposer():
         # If both ligands don't have the same length, exit
         if not len(ref_atoms) == len(sample_atoms):
             print('Both ligands must have the same number of atoms')
-            print('Exit 6')
+            print(6)
             raise SystemExit()
 
         # Now we initiate the superimposer:
@@ -102,6 +117,10 @@ class Superimposer():
         io.set_structure(sample_structure) 
         io.save(self.output)
         print('Created ' + self.output + ' ligand')
+
+        print('Superposition successful')
+        print(0)
+        raise SystemExit()
 
     def superimpose_structures(self):
         """ Aligning two structures """
@@ -156,6 +175,10 @@ class Superimposer():
         io.save(self.output)
         print('Created ' + self.output + ' structure')
 
+        print('Superposition successful')
+        print(0)
+        raise SystemExit()
+
 
     def superimpose_structures2(self, rmsd_cutoff=1, remove_hetatm=False, remove_hydrogen=False):
         pdb_a = self.reference
@@ -200,7 +223,9 @@ class Superimposer():
         print('     RMS: '+str(super_imposer.rms))
         print('     RMS_CUTOFF: '+str(rmsd_cutoff))
 
-        raise SystemExit('Superposition successful. Exit 0.')
+        print('Superposition successful')
+        print(0)
+        raise SystemExit()
 
         ###########################################
 
