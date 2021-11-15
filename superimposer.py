@@ -37,19 +37,19 @@ class Superimposer():
         """ Checks the reference, sample and output paths and the type """
         # Check reference
         if not os.path.exists(self.reference):
-            raise SystemExit('Unexisting reference file. Exiting.')
+            raise SystemExit('Unexisting reference file. Exit 2.')
         self.is_valid_extension(self.reference, 'reference', 'pdb')
         # Check sample
         if not os.path.exists(self.sample):
-            raise SystemExit('Unexisting sample file. Exiting.')
+            raise SystemExit('Unexisting sample file. Exit 3.')
         self.is_valid_extension(self.sample, 'sample', 'pdb')
         # Check output
         if os.path.dirname(self.output) and not os.path.exists(os.path.dirname(self.output)):
-            raise SystemExit('Unexisting output directory. Exiting.')
+            raise SystemExit('Unexisting output directory. Exit 4.')
         self.is_valid_extension(self.output, 'output', 'pdb')
         # Check type
         if not self.is_valid_type(self.type):
-            raise SystemExit('Type %s is not correct. It must be one of: structure, ligand. Exit 2.' % self.type)
+            raise SystemExit('Type %s is not correct. It must be one of: structure, ligand. Exit 5.' % self.type)
 
 
     def superimpose_ligands(self):
@@ -85,7 +85,8 @@ class Superimposer():
 
         # If both ligands don't have the same length, exit
         if not len(ref_atoms) == len(sample_atoms):
-            raise SystemExit('Both ligands must have the same number of atoms. Exit 3.')
+            print('Both ligands must have the same number of atoms. Exit 6.')
+            raise SystemExit('')
 
         # Now we initiate the superimposer:
         super_imposer = Bio.PDB.Superimposer()
